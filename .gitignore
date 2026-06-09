@@ -22,3 +22,6 @@ wheels/
 dbt_modules/
 logs/
 target/
+
+#ukryte pliki maca
+.DS_Store

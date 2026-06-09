@@ -1,0 +1,10 @@
+dbt_crypto_profile:
+  outputs:
+    dev:
+      type: duckdb
+      path: crypto_lakehouse.db
+      schema: gold
+      extensions:
+        - parquet
+        
+  target: dev
