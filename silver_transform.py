@@ -20,8 +20,8 @@ def silver_transform():
     else:
         print("Spark session created successfully.")
 
-    bronze_path = "./coins.json"
-    output_path = "./silver_coins"
+    bronze_path = "data/bronze/coins.json"
+    output_path = "data/silver/silver_coins"
 
     json_schema = StructType(
         [

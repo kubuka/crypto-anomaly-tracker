@@ -5,6 +5,9 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "dbt-core>=1.11.11",
+    "dbt-duckdb>=1.10.1",
+    "duckdb>=1.5.3",
     "pyspark>=4.1.2",
     "python-dotenv>=1.2.2",
     "requests>=2.34.2",
