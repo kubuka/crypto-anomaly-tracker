@@ -11,3 +11,14 @@ wheels/
 
 # API keys
 .env
+
+# Pliki bazy danych 
+*.db
+*.db.wal
+
+# Ukryte pliki i logi 
+.user.yml
+*.log
+dbt_modules/
+logs/
+target/
