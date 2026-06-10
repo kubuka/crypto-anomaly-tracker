@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: silver_layer
+    schema: gold
+    tables:
+      - name: crypto_prices
+        config:
+          external_location: '../data/silver/silver_coins/*.parquet'
