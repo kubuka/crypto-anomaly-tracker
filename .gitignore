@@ -15,6 +15,9 @@ wheels/
 # Pliki bazy danych 
 *.db
 *.db.wal
+*.parquet
+*.crc
+*.json
 
 # Ukryte pliki i logi 
 .user.yml

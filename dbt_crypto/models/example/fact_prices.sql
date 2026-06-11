@@ -1,4 +1,4 @@
-{{ config(materialized = 'table') }} 
+{{ config(materialized = 'incremental', unique_key = 'fact_id') }} 
 
 with source_data as (
     select id as coin_id,
@@ -17,3 +17,9 @@ select
     total_volume,
     price_timestamp
 from source_data
+
+{% if is_incremental() %}
+    WHERE year = CAST(EXTRACT(YEAR FROM CURRENT_DATE) AS VARCHAR)
+      AND month = CAST(EXTRACT(MONTH FROM CURRENT_DATE) AS VARCHAR)
+      AND price_timestamp > (SELECT MAX(price_timestamp) FROM {{ this }})
+{% endif %}
