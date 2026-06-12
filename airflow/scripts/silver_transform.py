@@ -21,8 +21,8 @@ def silver_transform():
     else:
         print("Spark session created successfully.")
 
-    bronze_path = "data/bronze/coins.json"
-    output_path = "data/silver/silver_coins"
+    bronze_path = "/opt/data/bronze/coins.json"
+    output_path = "/opt/data/silver/silver_coins"
 
     json_schema = StructType(
         [
@@ -62,6 +62,3 @@ def silver_transform():
         return
 
     spark.stop()
-
-
-silver_transform()

@@ -6,5 +6,6 @@ sources:
     tables:
       - name: crypto_prices
         config:
-          external_location: '../data/silver/silver_coins/**/*.parquet'
+          external_location: '/opt/data/silver/silver_coins/**/*.parquet'
+
 #duckdb moze czytac ze sciezki wiec nie trzeba uzywac dbt stage_external_sources

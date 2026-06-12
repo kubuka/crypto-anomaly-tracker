@@ -34,9 +34,6 @@ def pull():
             print(f"API request failed with status code: {response.status_code}")
             break
 
-    with open("data/bronze/coins.json", "w", encoding="utf-8") as f:
+    with open("/opt/data/bronze/coins.json", "w", encoding="utf-8") as f:
         print(f"Saving {len(allcoins)} coins to coins.json")
         json.dump(allcoins, f, indent=4)
-
-
-pull()

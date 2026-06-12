@@ -5,7 +5,9 @@ with source_data as (
         current_price,
         market_cap,
         total_volume,
-        last_updated as price_timestamp
+        last_updated as price_timestamp,
+        year,
+        month
     from {{source('silver_layer', 'crypto_prices') }}
 )
 

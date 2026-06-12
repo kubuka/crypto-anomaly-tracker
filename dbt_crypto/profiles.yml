@@ -2,7 +2,7 @@ dbt_crypto_profile:
   outputs:
     dev:
       type: duckdb
-      path: crypto_lakehouse.db
+      path: /opt/airflow/dbt_crypto/crypto_lakehouse.db
       schema: gold
   
         
