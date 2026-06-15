@@ -55,7 +55,7 @@ services:
 
   dbt-init:
     <<: *airflow-common
-    command: bash -c "cd /opt/airflow/dbt_crypto && dbt deps"
+    command: bash -c "airflow db migrate && airflow users create  --username admin  --firstname admin  --lastname admin  --role Admin  --email admin@example.com  --password admin && cd /opt/airflow/dbt_crypto && dbt deps"
 
   crypto_dashboard:
     build:
