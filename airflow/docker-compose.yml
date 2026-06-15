@@ -12,7 +12,7 @@ x-airflow-common: &airflow-common
     - ./logs:/opt/airflow/logs
     - ./plugins:/opt/airflow/plugins
     - ../data:/opt/data
-    - ./scripts:/opt/airflow/scripts
+    - ../scripts:/opt/airflow/scripts
     - ../dbt_crypto:/opt/airflow/dbt_crypto
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
@@ -44,10 +44,30 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
+    depends_on:
+      - dbt-init
 
   scheduler:
     <<: *airflow-common
     command: scheduler
+    depends_on:
+      - dbt-init
 
+  dbt-init:
+    <<: *airflow-common
+    command: bash -c "cd /opt/airflow/dbt_crypto && dbt deps"
+
+  crypto_dashboard:
+    build:
+      context: ../dashboard
+      dockerfile: Dockerfile
+    container_name: crypto_dashboard
+    restart: always
+    ports:
+      - "8501:8501"
+    volumes:
+      - ../dbt_crypto:/dbt_crypto
+    depends_on:
+      - webserver
 volumes:
   postgres_data:

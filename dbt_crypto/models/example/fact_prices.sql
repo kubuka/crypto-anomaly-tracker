@@ -1,4 +1,4 @@
-{{ config(materialized = 'incremental', unique_key = 'fact_id') }} 
+{{ config(materialized = 'table', unique_key = 'fact_id') }} 
 
 with source_data as (
     select id as coin_id,
@@ -6,8 +6,7 @@ with source_data as (
         market_cap,
         total_volume,
         last_updated as price_timestamp,
-        year,
-        month
+        row_number() over (partition by id, last_updated order by last_updated desc) as row_num
     from {{source('silver_layer', 'crypto_prices') }}
 )
 
@@ -19,9 +18,4 @@ select
     total_volume,
     price_timestamp
 from source_data
-
-{% if is_incremental() %}
-    WHERE year = CAST(EXTRACT(YEAR FROM CURRENT_DATE) AS VARCHAR)
-      AND month = CAST(EXTRACT(MONTH FROM CURRENT_DATE) AS VARCHAR)
-      AND price_timestamp > (SELECT MAX(price_timestamp) FROM {{ this }})
-{% endif %}
+where row_num = 1

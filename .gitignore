@@ -23,6 +23,7 @@ wheels/
 .user.yml
 *.log
 dbt_modules/
+dbt_packages/
 logs/
 target/
 

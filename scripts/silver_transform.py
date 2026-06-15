@@ -7,7 +7,7 @@ from pyspark.sql.types import (
     LongType,
     TimestampType,
 )
-from pyspark.sql.functions import year, month, col
+from pyspark.sql.functions import year, month, col, day
 
 
 def silver_transform():
@@ -22,7 +22,7 @@ def silver_transform():
         print("Spark session created successfully.")
 
     bronze_path = "/opt/data/bronze/coins.json"
-    output_path = "/opt/data/silver/silver_coins"
+    output_path = "/opt/data/silver"
 
     json_schema = StructType(
         [
@@ -46,6 +46,7 @@ def silver_transform():
             .json(bronze_path)
             .withColumn("year", year(col("last_updated")))
             .withColumn("month", month(col("last_updated")))
+            .withColumn("day", day(col("last_updated")))
         )
 
         print("JSON file read successfully.")
@@ -55,7 +56,9 @@ def silver_transform():
 
     try:
         print(f"Writing DataFrame to {output_path} in Parquet format...")
-        df_silver.write.mode("append").partitionBy("year", "month").parquet(output_path)
+        df_silver.write.mode("append").partitionBy("year", "month", "day").parquet(
+            output_path
+        )
         print("DataFrame written successfully.")
     except Exception as e:
         print(f"Error writing DataFrame: {e}")

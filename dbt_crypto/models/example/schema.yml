@@ -1,0 +1,63 @@
+version: 2
+
+models:
+  - name: fact_prices
+    description: "Fact table zawierający historyczne ceny kryptowalut."
+    columns:
+      - name: fact_id
+        description: "Unikalny klucz główny (MD5 z coin_id i timestampu)."
+        tests:
+          - unique
+          - not_null
+
+      - name: coin_id
+        description: "Identyfikator kryptowaluty."
+        tests:
+          - not_null
+
+      - name: current_price
+        description: "Cena kryptowaluty w danym momencie."
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0" # Cena nie może być ujemna
+
+      - name: price_timestamp
+        description: "Znacznik czasu, kiedy cena została zarejestrowana."
+        tests:
+          - not_null
+      
+  - name: dim_coins
+    description: "Dimensional table zawierający informacje o kryptowalutach."
+    columns:
+      - name: coin_id
+        description: "Unikalny identyfikator kryptowaluty."
+        tests:
+          - unique
+          - not_null
+
+  - name: mart_crypto_anomalies
+    description: "Model Gold wykrywający anomalie cenowe za pomocą 3x odchylenia standardowego."
+    columns:
+      - name: fact_id
+        description: "Unikalny klucz główny (MD5 z coin_id i timestampu)."
+        tests:
+          - unique
+          - not_null
+
+      - name: coin_id
+        description: "Identyfikator kryptowaluty."
+        tests:
+          - not_null
+
+      - name: current_price
+        description: "Bieżąca cena kryptowaluty."
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0" # Cena nie może być ujemna
+
+      - name: is_anomaly
+        description: "Flaga określająca, czy odchylenie przekroczyło próg anomalii."
+        tests:
+          - not_null
