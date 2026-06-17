@@ -81,7 +81,7 @@ Crypto Anomaly Detector is an automated data engineering pipeline designed to sp
 - ***DuckDB*** - A fast, serverless analytical engine (OLAP) that queries and models Parquet files directly on the local disk without database server overhead.
 - ***Streamlit*** - Used to build a clean, interactive web application completely in Python for quick prototyping and visualization.
 - ***Docker*** - Containerizes Airflow, the Python environment, and the dashboard, ensuring the entire stack runs exactly the same way on any operating system.
-- ***UV*** - Provides modern Python package management with fast installations and strict dependency locking for environment stability.
+- ***UV*** - Provides modern Python package management with fast installations.
 
 ---
 # The ETL Process
