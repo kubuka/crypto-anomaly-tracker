@@ -225,6 +225,9 @@ def load_data():
     conn.close()
     return df
 ```
+
+<img width="1765" height="867" alt="Zrzut ekranu 2026-06-24 o 14 57 59" src="https://github.com/user-attachments/assets/293f2d6b-130f-412f-a142-6d06d0fdc9a7" />
+
 ---
 # Dockerization
 To ensure total environment reproducibility across different operating systems, the entire project infrastructure is fully containerized. Instead of managing local runtime environments, Python libraries, or database system services, the stack spins up encapsulation profiles using Docker Compose.
